@@ -32,8 +32,8 @@ export default class App extends Component {
   }
 
   async deposit(transactionObj){
-  //  await axios.post("http://localhost:3500/transactions",{data: transactionObj})
-  await axios.post("/transactions",{data: transactionObj})
+   await axios.post("http://localhost:3500/transactions",{data: transactionObj})
+  // await axios.post("/transactions",{data: transactionObj})
     await this.getData()
     // if(transactionObj!=={})
     //   {
@@ -44,8 +44,8 @@ export default class App extends Component {
      
   }
   async withdraw(transactionObj){
-    // await axios.post("http://localhost:3500/transactions",{ data: transactionObj})
-    await axios.post("/transactions",{ data: transactionObj})
+    await axios.post("http://localhost:3500/transactions",{ data: transactionObj})
+    // await axios.post("/transactions",{ data: transactionObj})
     await this.getData()
     // if(transactionObj!=={})
     //   {
@@ -55,8 +55,8 @@ export default class App extends Component {
     //   }
   }
   async delete(transactionObj){
-    // await axios.delete("http://localhost:3500/transactions",{data:{transactionObj}});
-    await axios.delete("/transactions",{data:{transactionObj}});
+    await axios.delete("http://localhost:3500/transactions",{data:{transactionObj}});
+    // await axios.delete("/transactions",{data:{transactionObj}});
     await this.getData()
   //   if(transactionObj!=={}){
   //     let arr = [...this.state.transcations];
@@ -72,8 +72,8 @@ export default class App extends Component {
 
    async getData(){
     //  await axios.get("/transactions").then(res=>{this.setState({transcations:res})});
-    //  let transcations =await axios.get("http://localhost:3500/transactions");
-    let transcations =await axios.get("/transactions");
+     let transcations =await axios.get("http://localhost:3500/transactions");
+    // let transcations =await axios.get("/transactions");
      this.setState({transcations:transcations.data});
   }
 
