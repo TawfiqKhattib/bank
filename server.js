@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const api = require('./routes/api')
+const api = require('./src/routes/api')
 const mongoose = require('mongoose')
 
 const app = express()
@@ -15,13 +15,18 @@ app.use(function (req, res, next) {
 // Mongoose setup
 mongoose.connect( 'mongodb://localhost/tranactions', { useNewUrlParser: true, useUnifiedTopology: true })
 
+// const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
+app.use(express.static(path.join(__dirname, 'build')));
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'node_modules')))
 
 app.use('/', api);
 
-
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 app.listen(port, function() {
     console.log(`Running server on port ${port}`)
 })
