@@ -31,7 +31,7 @@ export default class App extends Component {
 
     if (process.env.NODE_ENV === 'production') {
       //my heroku
-      url = `https://react-bank-musa.herokuapp.com/:${port}`
+      url = `https://banktranactions.herokuapp.com//:${port}`
     }
     this.api_url = url
 
