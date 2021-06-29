@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
     next()
 })
 // Mongoose setup
-mongoose.connect( process.env.CLEARDB_DATABASE_URL||'mongodb://localhost/tranactions', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect( process.env.CLEARDB_DATABASE_URL ||'mongodb://localhost/tranactions', { useNewUrlParser: true, useUnifiedTopology: true })
 
 // const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
 app.use(express.static(path.join(__dirname, 'build')));

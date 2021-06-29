@@ -5,10 +5,11 @@ export default class Transaction extends Component {
     render() {
       let transcation = this.props.transcation;
       return (
-        <div className={transcation.color?"green":"red"}>
-            ${transcation.amount}, vendor: {transcation.vendor},  catagory: {transcation.category}
-            <hr></hr>
-        </div>
+        <tr className={transcation.color?"green":"red"}>
+            <td>{transcation.amount}</td>
+            <td>{transcation.vendor}</td>
+            <td>{transcation.category}</td>
+        </tr>
       );
     }
 }
