@@ -21,14 +21,12 @@ export default class App extends Component {
     this.getData=this.getData.bind(this);
   }
 
-  amount(){
+  amount(transcations){
     let sum = 0;
-    for(let elem of this.state.transcations){
-      for(let amountin in elem){
-        sum+=amountin.amount
-      }
+    for(let elem of transcations){
+        sum+=elem.amount     
     }
-    this.setState({ amount: sum });
+    return sum;
   }
 
   async deposit(transactionObj){
@@ -74,7 +72,9 @@ export default class App extends Component {
     //  await axios.get("/transactions").then(res=>{this.setState({transcations:res})});
      let transcations =await axios.get("http://localhost:3500/transactions");
     // let transcations =await axios.get("/transactions");
-     this.setState({transcations:transcations.data});
+    let transcationsData=transcations.data;
+    let amountTotal = this.amount(transcationsData)
+     this.setState({transcations:transcationsData,amount:amountTotal});
   }
 
   async componentDidMount() {
@@ -86,7 +86,7 @@ export default class App extends Component {
     return (
       <Router>
         <div>
-          <div>Balance: {this.state.amount}</div>
+          <div className={this.state.amount>100?"green":this.state.amount>30?"brown":"red"}>Balance: {this.state.amount}</div>
           {/* <Transcations transcations={this.state.transcations}/> */}
           <Link to="/"></Link>
           <Operations deposit={this.deposit} withdraw={this.withdraw} delete={this.delete} />
