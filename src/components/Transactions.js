@@ -7,9 +7,9 @@ export default class Transcations extends Component {
       return (
         <div>
          
-          {transcations.map((tran) => {
+          {transcations.map((tran,index) => {
             return (
-              <Transcation transcation={tran} />
+              <Transcation key={`t${index}`} transcation={tran} />
             );
           })}
         </div>

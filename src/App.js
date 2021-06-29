@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 export default class App extends Component {
   constructor(){
     super();
+    this.mode_api_url()
     this.state={
     transcations:[],
     amount:0,
@@ -21,6 +22,21 @@ export default class App extends Component {
     this.getData=this.getData.bind(this);
   }
 
+  mode_api_url = () => {
+    let url
+    let port = process.env.PORT || "3500"
+    if (process.env.NODE_ENV === 'development') {
+      url = `http://localhost:${port}/`
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      //my heroku
+      url = `https://react-bank-musa.herokuapp.com/:${port}`
+    }
+    this.api_url = url
+
+  }
+
   amount(transcations){
     let sum = 0;
     for(let elem of transcations){
@@ -31,7 +47,7 @@ export default class App extends Component {
 
   async deposit(transactionObj){
   //  await axios.post("http://localhost:3500/transactions",{data: transactionObj})
-  await axios.post("/transactions",{data: transactionObj})
+  await axios.post(`${this.api_url}transactions`,{data: transactionObj})
     await this.getData()
     // if(transactionObj!=={})
     //   {
@@ -43,7 +59,7 @@ export default class App extends Component {
   }
   async withdraw(transactionObj){
     // await axios.post("http://localhost:3500/transactions",{ data: transactionObj})
-    await axios.post("/transactions",{ data: transactionObj})
+    await axios.post(`${this.api_url}transactions`,{ data: transactionObj})
     await this.getData()
     // if(transactionObj!=={})
     //   {
@@ -54,7 +70,7 @@ export default class App extends Component {
   }
   async delete(transactionObj){
     // await axios.delete("http://localhost:3500/transactions",{data:{transactionObj}});
-    await axios.delete("/transactions",{data:{transactionObj}});
+    await axios.delete(`${this.api_url}transactions`,{data:{transactionObj}});
     await this.getData()
   //   if(transactionObj!=={}){
   //     let arr = [...this.state.transcations];
@@ -69,9 +85,9 @@ export default class App extends Component {
   }
 
    async getData(){
-     await axios.get("/transactions").then(res=>{this.setState({transcations:res})});
+    //  await axios.get("/transactions").then(res=>{this.setState({transcations:res})});
     //  let transcations =await axios.get("http://localhost:3500/transactions");
-    // let transcations =await axios.get("/transactions");
+    let transcations =await axios.get(`${this.api_url}transactions`);
     let transcationsData=transcations.data;
     let amountTotal = this.amount(transcationsData)
      this.setState({transcations:transcationsData,amount:amountTotal});
