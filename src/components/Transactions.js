@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Transcation from "./Transaction";
-import './Transactions.css'
+import './style/Transactions.css'
 
 export default class Transcations extends Component {
      render() {
